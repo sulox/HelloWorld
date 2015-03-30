@@ -4,17 +4,19 @@ package printing;
  * Created by Suliky on 22.3.2015.
  */
 
-public class Printer implements IMachine {
+public class Printer<T> implements IMachine {
 
 //    private boolean isOn;
     private String modelNumber;
     private PaperTray paperTray = new PaperTray();
     private Machine machine;
+    private T cartRidge;
 
-    public Printer (boolean isOn, String modelNumber)
+    public Printer (boolean isOn, String modelNumber, T cartRidge)
     {
         machine = new Machine(isOn);
         this.modelNumber = modelNumber;
+        this.cartRidge = cartRidge;
     }
 
     public void print(int copies) {
@@ -37,7 +39,7 @@ public class Printer implements IMachine {
         }
 
         if (paperTray.isEmpty()) {
-            System.out.println("Load paper!");
+            System.out.println(" Load paper!");
         }
     }
 
