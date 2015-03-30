@@ -13,6 +13,7 @@ public class HelloWorld {
 //        IMachine myMachine = new Printer(true, "Test");
 
         printer.turnOn();
+        printer.turnOff();
 
 //        myPrinter.loadPaper(5);
 //        myPrinter.print(5);
