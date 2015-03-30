@@ -21,6 +21,8 @@ public class Printer<T> implements IMachine {
 
     public void print(int copies) {
 
+        System.out.println(cartRidge.toString());
+
         String onStatus = "";
 
         if (machine.isOn()) {
@@ -41,6 +43,12 @@ public class Printer<T> implements IMachine {
         if (paperTray.isEmpty()) {
             System.out.println(" Load paper!");
         }
+    }
+
+    public <U> void printUsingCartridge(U cartridge, String message) {
+        System.out.println(cartridge.toString());
+        System.out.println(message);
+        System.out.println(cartridge.toString());
     }
 
     @Override
