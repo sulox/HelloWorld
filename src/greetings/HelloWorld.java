@@ -12,7 +12,7 @@ public class HelloWorld {
 //        Printer myPrinter = new Printer(true, "Lexmark");
 //        IMachine myMachine = new Printer(true, "Test");
 
-//        myMachine.turnOn();
+        printer.turnOn();
 
 //        myPrinter.loadPaper(5);
 //        myPrinter.print(5);
