@@ -5,10 +5,16 @@ import printing.*;
 public class HelloWorld {
 
     public static void main(String[] args) {
-        Printer<ColorCartRidge> printerColor = new Printer<ColorCartRidge>(true, "Lexmark", new ColorCartRidge());
+//        Printer<ColorCartRidge> printerColor = new Printer<ColorCartRidge>(true, "Lexmark", new ColorCartRidge());
         Printer<BWCartRidge> printerBW = new Printer<BWCartRidge>(true, "BWPRINTER", new BWCartRidge());
 
-        printOne(printerColor);
+        try {
+            printerBW.print(-1);
+        }
+        catch (IllegalArgumentException exception){
+            System.out.println(exception.getMessage());
+        }
+//        printOne(printerColor);
 
 //        printerBW.printUsingCartridge(new ColorCartRidge(), "Hello!");
 
@@ -22,8 +28,8 @@ public class HelloWorld {
 //        myPrinter.print(5);
     }
 
-    public static void printOne(Printer<? extends ICartridge> printer) {
-        String fillPercentage = printer.getCartRidge().getFillPercentage();
-        System.out.println(fillPercentage);
-    }
+//    public static void printOne(Printer<? extends ICartridge> printer) {
+//        String fillPercentage = printer.getCartRidge().getFillPercentage();
+//        System.out.println(fillPercentage);
+//    }
 }

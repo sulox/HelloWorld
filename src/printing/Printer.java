@@ -21,6 +21,8 @@ public class Printer<T extends ICartridge> implements IMachine {
 
     public void print(int copies) {
 
+        checkCopies(copies);
+
         System.out.println(cartRidge.getFillPercentage());
 
         String onStatus = "";
@@ -42,6 +44,12 @@ public class Printer<T extends ICartridge> implements IMachine {
 
         if (paperTray.isEmpty()) {
             System.out.println("Load paper!");
+        }
+    }
+
+    private void checkCopies(int copies) {
+        if (copies < 0) {
+            throw new IllegalArgumentException("Can't print less than 0 copies");
         }
     }
 
@@ -68,8 +76,6 @@ public class Printer<T extends ICartridge> implements IMachine {
     public boolean isOn() {
         return machine.isOn();
     }
-
-
 
     /*
     public void foreachPrinter() {
