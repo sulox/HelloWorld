@@ -4,7 +4,7 @@ package printing;
  * Created by Suliky on 22.3.2015.
  */
 
-public class Printer<T> implements IMachine {
+public class Printer<T extends ICartridge> implements IMachine {
 
 //    private boolean isOn;
     private String modelNumber;
@@ -21,7 +21,7 @@ public class Printer<T> implements IMachine {
 
     public void print(int copies) {
 
-        System.out.println(cartRidge.toString());
+        System.out.println(cartRidge.getFillPercentage());
 
         String onStatus = "";
 
@@ -41,11 +41,11 @@ public class Printer<T> implements IMachine {
         }
 
         if (paperTray.isEmpty()) {
-            System.out.println(" Load paper!");
+            System.out.println("Load paper!");
         }
     }
 
-    public <U> void printUsingCartridge(U cartridge, String message) {
+    public <U extends ICartridge> void printUsingCartridge(U cartridge, String message) {
         System.out.println(cartridge.toString());
         System.out.println(message);
         System.out.println(cartridge.toString());
@@ -68,6 +68,8 @@ public class Printer<T> implements IMachine {
     public boolean isOn() {
         return machine.isOn();
     }
+
+
 
     /*
     public void foreachPrinter() {
@@ -110,6 +112,10 @@ public class Printer<T> implements IMachine {
             }
         }
         */
+
+    public T getCartRidge() {
+        return cartRidge;
+    }
 
     private void print(String text)
     {

@@ -1,10 +1,6 @@
 package greetings;
 
-import printing.ColorCartRidge;
-import printing.BWCartRidge;
-import printing.IMachine;
-import printing.Machine;
-import printing.Printer;
+import printing.*;
 
 public class HelloWorld {
 
@@ -12,7 +8,9 @@ public class HelloWorld {
         Printer<ColorCartRidge> printerColor = new Printer<ColorCartRidge>(true, "Lexmark", new ColorCartRidge());
         Printer<BWCartRidge> printerBW = new Printer<BWCartRidge>(true, "BWPRINTER", new BWCartRidge());
 
-        printerBW.printUsingCartridge(new ColorCartRidge(), "Hello!");
+        printOne(printerColor);
+
+//        printerBW.printUsingCartridge(new ColorCartRidge(), "Hello!");
 
 //        printerColor.print(1);
 //        printerBW.print(1);
@@ -22,5 +20,10 @@ public class HelloWorld {
 
 //        myPrinter.loadPaper(5);
 //        myPrinter.print(5);
+    }
+
+    public static void printOne(Printer<? extends ICartridge> printer) {
+        String fillPercentage = printer.getCartRidge().getFillPercentage();
+        System.out.println(fillPercentage);
     }
 }
