@@ -1,5 +1,10 @@
 package printing;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Suliky on 22.3.2015.
  */
@@ -11,6 +16,8 @@ public class Printer<T extends ICartridge> implements IMachine {
     private PaperTray paperTray = new PaperTray();
     private Machine machine;
     private T cartRidge;
+    //private List<PAge> pages = new ArrayList<PAge>();
+    private Map<Integer, PAge> pAgeMap = new HashMap<Integer, PAge>();
 
     public Printer (boolean isOn, String modelNumber, T cartRidge)
     {
@@ -21,7 +28,7 @@ public class Printer<T extends ICartridge> implements IMachine {
 
     public void print(int copies) {
 
-        checkCopies(copies);
+        //checkCopies(copies);
 
         System.out.println(cartRidge.getFillPercentage());
 
@@ -33,18 +40,31 @@ public class Printer<T extends ICartridge> implements IMachine {
             onStatus = " is OFF! ";
         }
 
-        String modelStatus = modelNumber + onStatus;
+        //String modelStatus = modelNumber + onStatus;
+        String textToPrint = modelNumber + onStatus;
+        int pageNumber = 1;
 
         while (copies > 0 && !paperTray.isEmpty())
         {
-            System.out.println(modelStatus + (paperTray.pages) + " pages in tray. Printing... " + (paperTray.pages - 1) + " pages still left!");
+            //System.out.println(modelStatus + (paperTray.pages) + " pages in tray. Printing... " + (paperTray.pages - 1) + " pages still left!");
+            pAgeMap.put(pageNumber, new PAge(textToPrint + ":" + pageNumber));
             copies--;
+            pageNumber++;
             paperTray.usePage();
         }
 
         if (paperTray.isEmpty()) {
             System.out.println("Load paper!");
         }
+    }
+
+    /*public void outputPages() {
+        for (PAge currentPage : pages) {
+            System.out.println(currentPage.getText());
+        }
+    }*/
+    public void outputPage (int pageNumber) {
+        System.out.println(pAgeMap.get(pageNumber).getText());
     }
 
     private void checkCopies(int copies) {
@@ -70,6 +90,7 @@ public class Printer<T extends ICartridge> implements IMachine {
     public void turnOff() {
 //        isOn = false;
         machine.turnOff();
+        System.out.println("Machines is turned off!");
     }
 
     @Override
