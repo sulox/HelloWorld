@@ -9,9 +9,15 @@ import java.util.*;
 public class HelloWorld {
 
     public static void main(String[] args) {
-//        Printer<ColorCartRidge> printerColor = new Printer<ColorCartRidge>(true, "Lexmark", new ColorCartRidge());
-        Printer<BWCartRidge> printer = new Printer<BWCartRidge>(true, "BWPRINTER", new BWCartRidge());
 
+        Printer<ColorCartRidge> printer = new Printer<ColorCartRidge>(true, "Lexmark", new ColorCartRidge());
+        //Printer<BWCartRidge> printer = new Printer<BWCartRidge>(true, "BWPRINTER", new BWCartRidge());
+
+        printer.loadPaper(5);
+        printer.print(3);
+        printer.outputPage(2);
+    }
+        /*
         Map<String, List<Integer>> testScores = new HashMap<String, List<Integer>>();
 
         List<Integer> joeScores = new ArrayList<Integer>();
@@ -71,7 +77,7 @@ public class HelloWorld {
             System.out.println(score);
         }
     }
-    /*
+
         Queue<String> myQueue = new LinkedList<String>();
 
         myQueue.offer("a");
@@ -82,7 +88,6 @@ public class HelloWorld {
             System.out.println(myQueue.poll());
         }
 
-/*
         //printer.loadPaper(10);
         //printer.print(5);
 

@@ -1,5 +1,9 @@
 package printing;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +45,8 @@ public class Printer<T extends ICartridge> implements IMachine {
         }
 
         //String modelStatus = modelNumber + onStatus;
-        String textToPrint = modelNumber + onStatus;
+        //String textToPrint = modelNumber + onStatus;
+        String textToPrint = getTextFromFile();
         int pageNumber = 1;
 
         while (copies > 0 && !paperTray.isEmpty())
@@ -56,6 +61,41 @@ public class Printer<T extends ICartridge> implements IMachine {
         if (paperTray.isEmpty()) {
             System.out.println("Load paper!");
         }
+    }
+
+    private String getTextFromFile() {
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        String allText = "";
+
+        try {
+          fileReader  = new FileReader("D:\\downloads\\olalala.txt");
+          bufferedReader = new BufferedReader(fileReader);
+            String line;
+
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+                    allText += line + "\n";
+                }
+                return allText;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        finally {
+            if (bufferedReader != null){
+                try {
+                    fileReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        return "";
     }
 
     /*public void outputPages() {
