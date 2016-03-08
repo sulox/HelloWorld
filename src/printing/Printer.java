@@ -1,9 +1,6 @@
 package printing;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.Map;
  * Created by Suliky on 22.3.2015.
  */
 
+@PrintingDevice(defaultPrintMethod = "print",defaultNumberOfCopies = 5)
 public class Printer<T extends ICartridge> implements IMachine {
 
 //    private boolean isOn;
@@ -66,15 +64,17 @@ public class Printer<T extends ICartridge> implements IMachine {
     private String getTextFromFile() {
         FileReader fileReader = null;
         BufferedReader bufferedReader = null;
+        CapitalizationReader capReader = null;
         String allText = "";
 
         try {
           fileReader  = new FileReader("D:\\downloads\\olalala.txt");
           bufferedReader = new BufferedReader(fileReader);
+            capReader = new CapitalizationReader(bufferedReader);
             String line;
 
             try {
-                while ((line = bufferedReader.readLine()) != null) {
+                while ((line = capReader.readLine()) != null) {
                     allText += line + "\n";
                 }
                 return allText;
@@ -86,9 +86,9 @@ public class Printer<T extends ICartridge> implements IMachine {
             e.printStackTrace();
         }
         finally {
-            if (bufferedReader != null){
+            if (capReader != null){
                 try {
-                    fileReader.close();
+                    capReader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -104,7 +104,18 @@ public class Printer<T extends ICartridge> implements IMachine {
         }
     }*/
     public void outputPage (int pageNumber) {
-        System.out.println(pAgeMap.get(pageNumber).getText());
+
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new FileWriter("D:\\Downloads\\olalala_out.txt"));
+            writer.println(pAgeMap.get(pageNumber).getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (writer != null)
+                writer.close();
+        }
+        //System.out.println(pAgeMap.get(pageNumber).getText());
     }
 
     private void checkCopies(int copies) {
